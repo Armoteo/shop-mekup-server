@@ -1,5 +1,5 @@
 {
   "port": 5000,
-  "jwtScret": "viktor0000Viktor",
+  "jwtSecret": "viktor0000Viktor",
   "mongoUrl": "mongodb+srv://armoteo:victor7777@cluster0.11ukp.mongodb.net/<app>?retryWrites=true&w=majority"
 }

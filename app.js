@@ -3,6 +3,7 @@ const config = require('config')
 const mongoose = require('mongoose')
 
 const app = express()
+// @ts-ignore
 app.use(express.json({ extended: true }))
 
 //router

@@ -51,7 +51,7 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req)
-
+      console.log(req.body)
       if (!errors.isEmpty()) {
         return req.status(400).json({
           errors: errors.array(),
@@ -73,7 +73,7 @@ router.post(
 
       const token = jwt.sign(
         { userId: user.id },
-        'secret',
+        config.get('jwtSecret'),
         { expiresIn: '1h' }
       )
       res.json({ token: token, userId: user.id })

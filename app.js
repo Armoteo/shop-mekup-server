@@ -1,6 +1,7 @@
 const express = require('express')
 const config = require('config')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const app = express()
 // @ts-ignore
@@ -8,6 +9,8 @@ app.use(express.json({ extended: true }))
 
 //router
 app.use('/api/auth', require('./routes/auth.routes'))
+
+app.use(corse())
 
 //server on port
 const PORT = config.get('port') || 5000
@@ -28,4 +31,3 @@ async function start() {
 }
 
 start()
-

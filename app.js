@@ -1,16 +1,16 @@
 const express = require('express')
 const config = require('config')
 const mongoose = require('mongoose')
-const corse = require('cors')
+const cors = require('cors')
 
 const app = express()
 // @ts-ignore
 app.use(express.json({ extended: true }))
 
 //router
-app.use('/api/auth', require('./routes/auth.routes'))
+app.use('/api/auth', cors(), require('./routes/auth.routes'))
 
-app.use(corse())
+app.use(cors())
 
 //server on port
 const PORT = config.get('port') || 5000

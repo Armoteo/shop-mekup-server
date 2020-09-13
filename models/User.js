@@ -4,6 +4,7 @@ const shema = new Schema({
   //поле текстовое , обьязательное и уникальное
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  token: { type: String, required: false },
   links: [{ type: Types.ObjectId, ref: 'Links' }]
 })
 

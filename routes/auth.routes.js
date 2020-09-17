@@ -32,8 +32,9 @@ router.post(
         return res.status(400).json({ message: 'The user is already registered' })
       }
       //secret password, create and save new user
+      const adminStatus = email === 'armoteo@ukr.net' ? true : false
       const hashedPassword = await bcrypt.hash(password, 12)
-      const user = new User({ email: email, password: hashedPassword, token: '' })
+      const user = new User({ email: email, password: hashedPassword, adminStatus: adminStatus })
       await user.save()
 
       res.status(201).json({ message: 'User created' })
@@ -51,7 +52,7 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req)
-     
+
       if (!errors.isEmpty()) {
         return req.status(400).json({
           errors: errors.array(),
@@ -61,7 +62,7 @@ router.post(
 
       const { email, password } = req.body
       const user = await User.findOne({ email })
-      
+
       if (!user) {
         return res.status(400).json({ message: 'User not found' })
       }
@@ -76,28 +77,10 @@ router.post(
         config.get('jwtSecret'),
         { expiresIn: '24h' }
       )
-      res.json({ token: token, userId: user.id })
+      res.json({ token: token, userId: user.id, adminStatus: user.adminStatus })
     } catch (e) {
       res.status(500).json({ message: 'Error login' })
     }
   })
-
-  router.post(
-    '/addGoods',
-    async (req, res) => {
-      try {
-        const tokkenArray = req.headers.authorization.split(" ")
-        if(tokkenArray[0] === 'Bearer') {
-          const tokken = tokkenArray[1]
-          if(jwt.verify(tokken, config.get('jwtSecret'))){
-            const objTokken = jwt.decode(tokken)
-            console.log(objTokken.userId)
-          }
-          
-        }
-      } catch (e) {
-        res.status(500).json({ message: 'Error login' })
-      }
-    })
 
 module.exports = router

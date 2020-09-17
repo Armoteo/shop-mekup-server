@@ -9,6 +9,7 @@ app.use(express.json({ extended: true }))
 
 //router
 app.use('/api/auth', cors(), require('./routes/auth.routes'))
+app.use('/api/goods', cors(), require('./routes/goods.routes'))
 
 app.use(cors())
 
